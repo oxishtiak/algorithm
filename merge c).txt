@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+void merge(int arr[], int l, int mid, int r)
+{
+   int n1 = mid - l + 1;
+   int n2 = r - mid;
+   int a1[n1];
+   int b2[n2];
+   // Coping element
+   // First copy for the left array
+   for (int i = 0; i < n1; i++)
+   {
+      a1[i] = arr[l + i];
+   }
+   // Coping Element For the Right Array
+
+   for (int j = 0; j < n2; j++)
+   {
+      b2[j] = arr[mid + 1 + j];
+   }
+   // we take two variable for traversing the left(i) and right (j) Array;
+   int i = 0;
+   int j = 0;
+   int k = l;
+   while (i < n1 && j < n2)
+   {
+      if (a1[i] <= b2[j])
+      {
+         arr[k++] = a1[i++];
+      }
+      else
+      {
+         arr[k++] = b2[j++];
+      }
+   }
+   while (i < n1)
+   {
+      arr[k++] = a1[i++];
+   }
+   while (j < n2)
+   {
+      arr[k++] = b2[j++];
+   }
+}
+void mergeSort(int arr[], int l, int r)
+{
+   if (l < r)
+   {
+      int mid = (l + r) / 2;
+      mergeSort(arr, l, mid);
+      mergeSort(arr, mid + 1, r);
+      merge(arr, l, mid, r);
+   }
+}
+int main()
+{
+   int n;
+   printf("Enter Array Size: ");
+   scanf("%d", &n);
+   int arr[n];
+   printf("\nEnter Array Element:\n");
+   for (int i = 0; i < n; i++)
+   {
+      scanf("%d", &arr[i]);
+   }
+   printf("\nGiven Arrray: ");
+
+   for (int i = 0; i < n; i++)
+   {
+      printf("%d ", arr[i]);
+   }
+
+   mergeSort(arr, 0, n - 1);
+   printf("\nSorted Array: ");
+   for (int i = 0; i < n; i++)
+   {
+      printf("%d ", arr[i]);
+   }
+}
