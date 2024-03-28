@@ -1,0 +1,64 @@
+
+ 
+#include <bits/stdc++.h>
+using namespace std;
+ 
+
+struct Item {
+    int profit, weight;
+ 
+    
+};
+ 
+
+static bool cmp(Item a,Item b)
+{
+    double r1 = (double)a.profit / (double)a.weight;
+    double r2 = (double)b.profit / (double)b.weight;
+    return r1 > r2;
+}
+ 
+
+double fractionalKnapsack(int W,Item arr[], int N)
+{
+  
+    sort(arr, arr + N, cmp);
+ 
+    double finalvalue = 0.0;
+ 
+ 
+    for (int i = 0; i < N; i++) {
+ 
+        if (arr[i].weight <= W) {
+            W -= arr[i].weight;
+            finalvalue += arr[i].profit;
+        }
+ 
+        else {
+            finalvalue
+                += arr[i].profit
+                   * ((double)W / (double)arr[i].weight);
+            break;
+        }
+    }
+ 
+
+    return finalvalue;
+}
+ 
+
+int main()
+{
+    int W,n;
+    cout<<"enter size : ";
+    cin>>n;
+    Item arr[n]; 
+    for(int i=0;i<n;i++){
+    cin>>arr[i].profit>>arr[i].weight;
+  }
+    cout<<"enter maximum weight : ";
+    cin>>W;
+
+    cout << fractionalKnapsack(W, arr, n);
+    return 0;
+}
