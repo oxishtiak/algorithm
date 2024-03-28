@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Job{
+   string id;
+   int deadline;
+   int profit;
+};
+bool comp(Job j1 , Job j2){
+  return (j1.profit > j2.profit);
+}
+
+void jobSEQ(int sz,Job jobs[]){
+    int jobseq[sz];
+  bool gntChart[sz-1];
+
+  for(int i=0;i<sz-1;i++){
+    gntChart[i] = false;
+  }
+  for(int i=0;i<sz;i++){
+    for(int j = (jobs[i].deadline)-1 ;j>=0;j--){
+        if(gntChart[j]== false){
+            gntChart[j] = true;
+            jobseq[j] = i;
+            break;
+        }
+
+    }
+
+  }
+
+
+  for(int i=0;i<sz;i++){
+
+    if(gntChart[i]){
+        cout<<jobs[jobseq[i]].id<< " ";
+    }
+    
+  }
+
+
+}
+int main(){
+  cout<<"enter Size : ";
+  int sz;
+  cin>>sz;
+  Job jobs[sz];
+  for(int i=0;i<sz;i++){
+    cin>>jobs[i].id>>jobs[i].deadline>>jobs[i].profit;
+  }
+  
+    jobSEQ(sz,jobs);
+
+  return 0;
+
+}
